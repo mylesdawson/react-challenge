@@ -125,7 +125,7 @@ class Posts(Resource):
         global post_id_serial
         post_id_serial += 1
         data = request.get_json()
-        print data
+        print(data)
         values = {
             'id': post_id_serial,
             'title': data['title'],
