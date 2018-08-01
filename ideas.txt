@@ -1,0 +1,14 @@
+Total hours: 2
+last clocked in:
+
+July 31st
+
+TODO
+- Look at api, see how endpoints are formatted
+- Add frontend React-based UI framework: material-UI
+- Add CSS loaders
+- Implement basic form + posts
+
+Learned
+- https://medium.com/@tmkelly28/handling-multiple-form-inputs-in-react-c5eb83755d15 (single change handler, needed stage-1 babel)
+- CSS loader and Style loader webpack
