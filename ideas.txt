@@ -1,5 +1,5 @@
-Total hours: 2
-last clocked in:
+Total hours: 4
+last clocked in: 
 
 July 31st
 
@@ -12,3 +12,14 @@ TODO
 Learned
 - https://medium.com/@tmkelly28/handling-multiple-form-inputs-in-react-c5eb83755d15 (single change handler, needed stage-1 babel)
 - CSS loader and Style loader webpack
+
+
+July 32nd
+
+TODO
+- Grab data from backend (learn fetch and async/await)
+- Create simple card displays with data loaded from backend
+
+Learned
+- Basic fetch from flask backend (simple)
+- Mapping from state (refreshed memory)
