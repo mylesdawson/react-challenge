@@ -9,35 +9,29 @@ import ThumbsUpAlt from '@material-ui/icons/ThumbUpSharp';
 import Delete from '@material-ui/icons/Delete';
 import './CustomCard.css';
 
-export default class CustomCard extends React.Component {
-
-  onDelete = () => {
-    this.props.handleDelete(this.props.id);
-  }
-
-  render() {
-    return (
-      <div className='flex-container'>
-        <Card className='card'>
-          <CardHeader
-            title={this.props.title}/>
-          <CardMedia
-            className='card-media'
-            image='https://www.tesla.com/sites/default/files/blog_images/model-s-photo-gallery-06.jpg'/>
-          <CardContent>
-            {this.props.description}
-          </CardContent>
-          <CardActions>
-            <IconButton>
-              <ThumbsUpAlt/>
-            </IconButton>
-            <IconButton onClick={this.onDelete}>
-              <Delete />
-            </IconButton>
-          </CardActions>
-        </Card>
-      </div>
-    )
-  }
-
+const CustomCard = (props) => {
+  return (
+    <div className='flex-container'>
+      <Card className='card'>
+        <CardHeader
+          title={props.title}/>
+        <CardMedia
+          className='card-media'
+          image='https://www.tesla.com/sites/default/files/blog_images/model-s-photo-gallery-06.jpg'/>
+        <CardContent>
+          {props.description}
+        </CardContent>
+        <CardActions>
+          <IconButton>
+            <ThumbsUpAlt/>
+          </IconButton>
+          <IconButton onClick={() => props.handleDelete(props.id)}>
+            <Delete />
+          </IconButton>
+        </CardActions>
+      </Card>
+    </div>
+  )
 };
+
+export default CustomCard;
