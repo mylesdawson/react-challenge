@@ -32,27 +32,23 @@ export default class App extends React.Component {
   }
 
   deletePost = (id) => {
-    fetch(`http://127.0.0.1:5000/posts/${id}`, { 
-      method: 'delete',
-    });
+    fetch(`http://127.0.0.1:5000/posts/${id}`, { method: 'delete' })
+      .then(res => {
+        this.fetchPosts();
+      })
   }
 
   handleSubmit = (title, description, image) => {
     this.createPost(title, description)
-      .then(res => {
-        console.log(res);
+      .then(() => {
+        this.fetchPosts();
       })
-  }
-
-  handleDelete = (id) => {
-    console.log(id);
-    console.log('clicked');
   }
 
   render() {
     const { posts } = this.state;
     const allPosts = posts.map(item => {
-      return <Card key={item.id} id={item.id} description={item.description} title={item.title} handleDelete={this.handleDelete}/>
+      return <Card key={item.id} id={item.id} description={item.description} title={item.title} handleDelete={this.deletePost}/>
     });
 
     return (
