@@ -25,23 +25,28 @@ export default class Form extends React.Component {
 
   render() {
     return (
-      <form>
+      <form className='flex-container'>
         <TextField
           name='title'
           label='Title'
           value={this.state.title}
           onChange={this.handleChange}
+          className='text-field'
+          margin="normal"
         />
         <TextField
           name='description'
           label='Description'
           value={this.state.description}
           onChange={this.handleChange}
+          className='text-field'
+          margin="normal"
         />
         <Button
           variant='contained'
           color='primary'
-          onClick={this.handleSubmit}>
+          onClick={this.handleSubmit}
+          className='form-button'>
           Submit
         </Button>
       </form>
