@@ -1,5 +1,5 @@
 Total hours: 6.5
-last clocked in:
+last clocked in: 2:30pm
 
 July 31st
 
@@ -24,3 +24,11 @@ Learned
 - Basic fetch from flask backend (simple)
 - Mapping from state (refreshed memory)
 - How to send data properly to backend (harder than expected)
+
+
+Aug 2nd
+
+TODO
+- Add ability to delete cards
+- Add form validation
+- Add image to card on submit
