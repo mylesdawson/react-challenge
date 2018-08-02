@@ -25,6 +25,7 @@ export default class Form extends React.Component {
     this.props.handleSubmit(title, description)
   }
 
+
   render() {
     return (
       <form className='flex-container'>

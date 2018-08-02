@@ -1,5 +1,5 @@
-Total hours: 4
-last clocked in: 
+Total hours: 6.5
+last clocked in:
 
 July 31st
 
@@ -14,7 +14,7 @@ Learned
 - CSS loader and Style loader webpack
 
 
-July 32nd
+Aug 1st
 
 TODO
 - Grab data from backend (learn fetch and async/await)
@@ -23,3 +23,4 @@ TODO
 Learned
 - Basic fetch from flask backend (simple)
 - Mapping from state (refreshed memory)
+- How to send data properly to backend (harder than expected)

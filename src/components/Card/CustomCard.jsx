@@ -6,9 +6,14 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import ThumbsUpAlt from '@material-ui/icons/ThumbUpSharp';
+import Delete from '@material-ui/icons/Delete';
 import './CustomCard.css';
 
 export default class CustomCard extends React.Component {
+
+  onDelete = () => {
+    this.props.handleDelete(this.props.id);
+  }
 
   render() {
     return (
@@ -25,6 +30,9 @@ export default class CustomCard extends React.Component {
           <CardActions>
             <IconButton>
               <ThumbsUpAlt/>
+            </IconButton>
+            <IconButton onClick={this.onDelete}>
+              <Delete />
             </IconButton>
           </CardActions>
         </Card>
