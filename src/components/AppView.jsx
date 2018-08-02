@@ -11,11 +11,32 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://127.0.0.1:5000/posts')
-      .then(res => res.json())
-      .then(res => this.setState({ posts: res }))
+    this.fetchPosts()
   }
 
+  fetchPosts = () => {
+    return fetch('http://127.0.0.1:5000/posts')
+      .then(res => res.json())
+      .then(res => this.setState({ posts: res }))
+  };
+
+  createPost = (title, description) => {
+    return fetch('http://127.0.0.1:5000/posts', { 
+      method: 'post',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ 
+        title,
+        description,
+      })
+    });
+  }
+
+  handleSubmit = (title, description, image) => {
+    this.createPost(title, description)
+      .then(res => {
+        console.log(res);
+      })
+  }
 
   render() {
     const { posts } = this.state;
@@ -25,7 +46,7 @@ export default class App extends React.Component {
 
     return (
       <div className="container">
-        <Form/>
+        <Form  handleSubmit={this.handleSubmit}/>
         {allPosts}
       </div>
     )

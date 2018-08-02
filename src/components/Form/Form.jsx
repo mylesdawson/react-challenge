@@ -10,6 +10,7 @@ export default class Form extends React.Component {
     this.state = {
       title: '',
       description: '',
+      image: ''
     }
   }
 
@@ -20,7 +21,8 @@ export default class Form extends React.Component {
   }
 
   handleSubmit = (e) => {
-    return
+    const { title, description, image } = this.state;
+    this.props.handleSubmit(title, description)
   }
 
   render() {
@@ -42,6 +44,14 @@ export default class Form extends React.Component {
           className='text-field'
           margin="normal"
         />
+        <TextField
+          name='image'
+          label='Image Url'
+          value={this.state.image}
+          onChange={this.handleChange}
+          className='text-field'
+          margin="normal"
+        />
         <Button
           variant='contained'
           color='primary'
@@ -53,6 +63,3 @@ export default class Form extends React.Component {
     )
   }
 };
-
-
-
