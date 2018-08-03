@@ -31,7 +31,13 @@ export default class Form extends React.Component {
     return false;
   }
 
-  fieldsAreValid = (title, description, image) => {
+  urlIsValid = (url) => {
+    const reg = /(https?:\/\/.*\.(?:png|jpg))/;
+    // Returns true if url matches regex, false otherwise
+    return reg.test(url)
+  }
+
+  fieldsAreValid = (title, description, imageUrl) => {
     this.setState({
       titleError: false,
       titleErrorMsg: '',
@@ -43,16 +49,20 @@ export default class Form extends React.Component {
 
     let errors = {};
     let errorMessages = {};
-    if(fieldIsEmpty(title)) {
+    if(this.fieldIsEmpty(title)) {
       errorMessages.titleErrorMsg = 'No title set';
       errors.titleError = true;
     }
-    if(fieldIsEmpty(description)) {
+    if(this.fieldIsEmpty(description)) {
       errorMessages.descriptionErrorMsg = 'No description set';
       errors.descriptionError = true;
     }
-    if(fieldIsEmpty(image)) {
-      errorMessages.imageErrorMsg = 'No image set';
+    if(this.fieldIsEmpty(imageUrl)) {
+      errorMessages.imageErrorMsg = 'No image url set';
+      errors.imageError = true;
+    }
+    if(!this.urlIsValid(imageUrl)) {
+      errorMessages.imageErrorMsg = 'Invalid image url';
       errors.imageError = true;
     }
 
@@ -78,7 +88,7 @@ export default class Form extends React.Component {
     if(!this.fieldsAreValid(title, description, image)) {
       return;
     }
-    this.props.handleSubmit(title, description)
+    this.props.handleSubmit(title, description, image)
   }
 
 
@@ -94,6 +104,7 @@ export default class Form extends React.Component {
           className='text-field'
           margin="dense"
           helperText={this.state.titleErrorMsg}
+          inputProps={{ maxLength: 128 }}
         />
         <TextField
           error={this.state.descriptionError}
@@ -104,6 +115,7 @@ export default class Form extends React.Component {
           className='text-field'
           margin="dense"
           helperText={this.state.descriptionErrorMsg}
+          inputProps={{ maxLength: 128 }}
         />
         <TextField
           error={this.state.imageError}
@@ -114,6 +126,7 @@ export default class Form extends React.Component {
           className='text-field'
           margin="dense"
           helperText={this.state.imageErrorMsg}
+          inputProps={{ maxLength: 128 }}
         />
         <Button
           variant='contained'

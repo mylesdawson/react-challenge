@@ -1,5 +1,5 @@
-Total hours: 6.5
-last clocked in: 2:30pm
+Total hours: 8.5
+last clocked in: 3:30pm
 
 July 31st
 
@@ -32,3 +32,17 @@ TODO
 - Add ability to delete cards
 - Add form validation
 - Add image to card on submit
+
+Learned
+- Basic form validation
+- Read docs for material-ui and react
+
+
+Aug 3rd
+
+TODO
+- Add image url validation
+- Add ability to submit image urls
+- Add ability to submit multiple image urls
+- Add scrollable cards with multiple images
+- Add max-len to textfield

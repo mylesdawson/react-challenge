@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card/CustomCard.jsx';
 import Form from './Form/Form.jsx';
+import { create } from 'jss';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -31,8 +32,19 @@ export default class App extends React.Component {
     });
   }
 
+  createImage = (image, postId) => {
+    return fetch('http://127.0.0.1:5000/images', {
+      method: 'post',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        url: image,
+        post_id: postId,
+      })
+    })
+  }
+
   deletePost = (id) => {
-    fetch(`http://127.0.0.1:5000/posts/${id}`, { method: 'delete' })
+    return fetch(`http://127.0.0.1:5000/posts/${id}`, { method: 'delete' })
       .then(res => {
         this.fetchPosts();
       })
@@ -40,10 +52,15 @@ export default class App extends React.Component {
 
   handleSubmit = (title, description, image) => {
     this.createPost(title, description)
-      .then(() => {
-        this.fetchPosts();
+      .then(r => r.json())
+      .then(r => {
+        console.log(r);
+        this.createImage(image, r.id)
+        .then(r => {
+          this.fetchPosts();
+        })
       })
-  }
+    }
 
   render() {
     const { posts } = this.state;
