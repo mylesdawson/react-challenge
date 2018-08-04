@@ -4,12 +4,7 @@ import Form from './Form/Form.jsx';
 import { create } from 'jss';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: []
-    }
-  }
+  state = { posts: [] }
 
   componentDidMount() {
     this.fetchPosts()
@@ -65,7 +60,15 @@ export default class App extends React.Component {
   render() {
     const { posts } = this.state;
     const allPosts = posts.map(item => {
-      return <Card key={item.id} id={item.id} description={item.description} title={item.title} handleDelete={this.deletePost}/>
+      return (
+        <Card 
+          key={item.id} 
+          id={item.id} 
+          description={item.description} 
+          images={item.images}
+          title={item.title} 
+          handleDelete={this.deletePost}/>
+      ) 
     });
 
     return (

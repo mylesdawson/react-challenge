@@ -4,20 +4,16 @@ import Button from '@material-ui/core/Button';
 import './Form.css'
 
 export default class Form extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      title: '',
-      titleError: false,
-      titleErrorMsg: '',
-      description: '',
-      descriptionError: false,
-      descriptionErrorMsg: '',
-      image: '',
-      imageError: false,
-      imageErrorMsg: '',
-    }
+  state = {
+    title: '',
+    titleError: false,
+    titleErrorMsg: '',
+    description: '',
+    descriptionError: false,
+    descriptionErrorMsg: '',
+    image: '',
+    imageError: false,
+    imageErrorMsg: '',
   }
 
   handleChange = (e) => {
