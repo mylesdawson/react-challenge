@@ -39,7 +39,7 @@ export default class CustomCard extends React.Component {
           <CardHeader
             title={title}/>
           <SwipeableViews
-            index={this.state.activeStep}
+            index={activeStep}
             onChangeIndex={this.handleStepChange}
             enableMouseEvents>
             {images.map(image => {

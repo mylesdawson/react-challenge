@@ -1,25 +1,35 @@
 import React from 'react';
-import { TextField } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import { Button, TextField } from '@material-ui/core';
 import './Form.css'
 
 export default class Form extends React.Component {
   state = {
     title: '',
-    titleError: false,
     titleErrorMsg: '',
     description: '',
-    descriptionError: false,
     descriptionErrorMsg: '',
-    image: '',
-    imageError: false,
-    imageErrorMsg: '',
+    images: [
+      {
+        id: 0,
+        image: '',
+        imageErrorMsg: '',
+      }
+    ],
+    nextImageId: 1,
   }
 
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
+  }
+
+  handleUrlChange = (e) => {
+    let updatedImages = this.state.images;
+    updatedImages[e.target.name].image = e.target.value;
+    this.setState({
+      images: updatedImages,
+    })
   }
 
   fieldIsEmpty = (str) => {
@@ -33,69 +43,76 @@ export default class Form extends React.Component {
     return reg.test(url)
   }
 
-  fieldsAreValid = (title, description, imageUrl) => {
-    this.setState({
-      titleError: false,
-      titleErrorMsg: '',
-      descriptionError: false,
-      descriptionErrorMsg: '',
-      imageError: false,
-      imageErrorMsg: '',
-    });
+  // fieldsAreValid = (title, description, images) => {
+  //   this.setState({
+  //     titleErrorMsg: '',
+  //     descriptionErrorMsg: '',
+  //   });
 
-    let errors = {};
-    let errorMessages = {};
-    if(this.fieldIsEmpty(title)) {
-      errorMessages.titleErrorMsg = 'No title set';
-      errors.titleError = true;
-    }
-    if(this.fieldIsEmpty(description)) {
-      errorMessages.descriptionErrorMsg = 'No description set';
-      errors.descriptionError = true;
-    }
-    if(this.fieldIsEmpty(imageUrl)) {
-      errorMessages.imageErrorMsg = 'No image url set';
-      errors.imageError = true;
-    }
-    if(!this.urlIsValid(imageUrl)) {
-      errorMessages.imageErrorMsg = 'Invalid image url';
-      errors.imageError = true;
-    }
+  //   let errorMessages = {};
+  //   let imageErrorMessages = {};
+  //   if(this.fieldIsEmpty(title)) {
+  //     errorMessages.titleErrorMsg = 'No title set';
+  //   }
+  //   if(this.fieldIsEmpty(description)) {
+  //     errorMessages.descriptionErrorMsg = 'No description set';
+  //   }
+  //   // if(this.fieldIsEmpty(imageUrl)) {
+  //   //   errorMessages.imageErrorMsg = 'No image url set';
+  //   // }
 
-    this.setState({
-      ...errors,
-      ...errorMessages,
-    })
+  //   for(let i in images) {
+  //     console.log(images[i]);
+  //     if(!this.urlIsValid(images[i].url)) {
+  //       imageErrorMessages.imageErrorMsg = 'Invalid image url';
+  //     }
+  //   }
 
-    if(Object.keys(errors).length === 0){
-      this.setState({
-        title: '',
-        description: '',
-        image: '',
-      })
-      return true;
-    }
-    return false;
-  }
+  //   this.setState({
+  //     ...errorMessages,
+  //   })
+  //   if(Object.keys(errorMessages).length === 0){
+  //     this.setState({
+  //       title: '',
+  //       description: '',
+  //     })
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   handleSubmit = (e) => {
-    const { title, description, image } = this.state;
-    
-    if(!this.fieldsAreValid(title, description, image)) {
-      return;
-    }
-    this.props.handleSubmit(title, description, image)
+    const { title, description } = this.state;
+    let { images } = this.state;
+    // if(!this.fieldsAreValid(title, description, images)) {
+    //   return;
+    // }
+    this.props.handleSubmit(title, description, images)
   }
 
+  addUrl = (e) => {
+    let images = this.state.images;
+    images.push({
+      id: this.state.nextImageId,
+      image: '',
+      imageErrorMsg: '',
+    })
+
+    this.setState((prevState) => {
+      return { images, nextImageId: prevState.nextImageId + 1 }
+    })
+  }
 
   render() {
+    const { images, title, titleErrorMsg, description, descriptionErrorMsg } = this.state;
+
     return (
       <form className='flex-container'>
         <TextField
-          error={this.state.titleError}
+          error={!!titleErrorMsg}
           name='title'
           label='Title'
-          value={this.state.title}
+          value={title}
           onChange={this.handleChange}
           className='text-field'
           margin="dense"
@@ -103,27 +120,39 @@ export default class Form extends React.Component {
           inputProps={{ maxLength: 128 }}
         />
         <TextField
-          error={this.state.descriptionError}
+          error={!!descriptionErrorMsg}
           name='description'
           label='Description'
-          value={this.state.description}
+          value={description}
           onChange={this.handleChange}
           className='text-field'
           margin="dense"
-          helperText={this.state.descriptionErrorMsg}
+          helperText={descriptionErrorMsg}
           inputProps={{ maxLength: 128 }}
         />
-        <TextField
-          error={this.state.imageError}
-          name='image'
-          label='Image Url'
-          value={this.state.image}
-          onChange={this.handleChange}
-          className='text-field'
-          margin="dense"
-          helperText={this.state.imageErrorMsg}
-          inputProps={{ maxLength: 128 }}
-        />
+        {images.map((image, index) => {
+          return (
+            <TextField
+              error={!!image.imageErrorMsg}
+              name={`${index}`}
+              label={`Image ${index} url`}
+              value={image.image}
+              onChange={this.handleUrlChange}
+              helperText={image.imageErrorMsg}
+              inputProps={{ maxLength: 128 }}
+              key={index}
+              margin="dense"
+              className='text-field'
+            />
+          );
+        })}
+        <Button
+          variant='contained'
+          color='secondary'
+          onClick={this.addUrl}
+          className='form-button'>
+          Add another URL
+        </Button>
         <Button
           variant='contained'
           color='primary'

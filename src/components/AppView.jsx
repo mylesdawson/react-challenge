@@ -13,7 +13,10 @@ export default class App extends React.Component {
   fetchPosts = () => {
     return fetch('http://127.0.0.1:5000/posts')
       .then(res => res.json())
-      .then(res => this.setState({ posts: res }))
+      .then(res => {
+        res = res.sort((a, b) => b.id - a.id)
+        this.setState({ posts: res });
+      })
   };
 
   createPost = (title, description) => {
