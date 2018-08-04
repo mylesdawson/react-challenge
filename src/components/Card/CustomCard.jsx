@@ -1,37 +1,85 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
+import { MobileStepper, CardActions, CardContent, CardHeader, CardMedia, Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import ThumbsUpAlt from '@material-ui/icons/ThumbUpSharp';
 import Delete from '@material-ui/icons/Delete';
+import SwipeableViews from 'react-swipeable-views';
 import './CustomCard.css';
 
-const CustomCard = (props) => {
-  return (
-    <div className='flex-container'>
-      <Card className='card'>
-        <CardHeader
-          title={props.title}/>
-        <CardMedia
-          className='card-media'
-          image='https://www.tesla.com/sites/default/files/blog_images/model-s-photo-gallery-06.jpg'/>
-        <CardContent>
-          {props.description}
-        </CardContent>
-        <CardActions>
-          <IconButton>
-            <ThumbsUpAlt/>
-          </IconButton>
-          <IconButton onClick={() => props.handleDelete(props.id)}>
-            <Delete />
-          </IconButton>
-        </CardActions>
-      </Card>
-    </div>
-  )
-};
+export default class CustomCard extends React.Component {
+  state = {
+    activeStep: 0,
+  }
 
-export default CustomCard;
+  handleNext = () => {
+    this.setState(prevState => ({
+      activeStep: prevState.activeStep + 1,
+    }));
+  };
+
+  handleBack = () => {
+    this.setState(prevState => ({
+      activeStep: prevState.activeStep - 1,
+    }));
+  };
+
+  handleStepChange = activeStep => {
+    this.setState({ activeStep });
+  };
+
+  render() {
+    const { title, images, description, id} = this.props;
+    const { activeStep } = this.state;
+    const maxSteps = images.length;
+
+    return (
+      <div className='flex-container'>
+        <Card className='card'>
+          <CardHeader
+            title={title}/>
+          <SwipeableViews
+            index={this.state.activeStep}
+            onChangeIndex={this.handleStepChange}
+            enableMouseEvents>
+            {images.map(image => {
+              return (
+                <CardMedia
+                  className='card-media'
+                  image={image.url}
+                  key={image.id}/>
+              )
+            })}
+          </SwipeableViews>
+          <MobileStepper
+            steps={maxSteps}
+            position="static"
+            activeStep={activeStep}
+            nextButton={
+              <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
+                Next
+              </Button>
+            }
+            backButton={
+              <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
+                Back
+              </Button>
+            }
+          />
+          <CardContent>
+            {description}
+          </CardContent>
+          <CardActions>
+            <IconButton>
+              <ThumbsUpAlt/>
+            </IconButton>
+            <IconButton onClick={() => this.props.handleDelete(id)}>
+              <Delete />
+            </IconButton>
+          </CardActions>
+        </Card>
+      </div>
+    )
+  }
+
+};
