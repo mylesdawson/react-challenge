@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Card from './Card/CustomCard.jsx';
 import Form from './Form/Form.jsx';
-import { create } from 'jss';
+import NavBar from './NavBar/NavBar.jsx';
 
 export default class App extends React.Component {
   state = { posts: [] }
@@ -58,7 +58,7 @@ export default class App extends React.Component {
           this.fetchPosts();
         })
       })
-    }
+  }
 
   render() {
     const { posts } = this.state;
@@ -75,10 +75,12 @@ export default class App extends React.Component {
     });
 
     return (
-      <div className="container">
-        <Form  handleSubmit={this.handleSubmit}/>
-        {allPosts}
-      </div>
+      <Fragment>
+        <NavBar addClick={this.addClick} modalSubmit={this.handleSubmit}/>
+        <div className="container">
+          {allPosts}
+        </div>
+      </Fragment>
     )
   }
 }

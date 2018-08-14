@@ -1,8 +1,8 @@
-import React from 'react';
-import { Button, TextField } from '@material-ui/core';
-import './Form.css'
+import React, { Component } from 'react';
+import { Button, TextField, Modal } from '@material-ui/core';
+import './ModalForm.css';
 
-export default class Form extends React.Component {
+export default class ModalForm extends Component {
   state = {
     title: '',
     titleErrorMsg: '',
@@ -87,80 +87,69 @@ export default class Form extends React.Component {
     // if(!this.fieldsAreValid(title, description, images)) {
     //   return;
     // }
-    this.props.handleSubmit(title, description, images)
-  }
-
-  addUrl = (e) => {
-    let images = this.state.images;
-    images.push({
-      id: this.state.nextImageId,
-      image: '',
-      imageErrorMsg: '',
-    })
-
-    this.setState((prevState) => {
-      return { images, nextImageId: prevState.nextImageId + 1 }
-    })
+    this.props.modalSubmit(title, description, images);
   }
 
   render() {
     const { images, title, titleErrorMsg, description, descriptionErrorMsg } = this.state;
 
     return (
-      <form className='flex-container'>
-        <TextField
-          error={!!titleErrorMsg}
-          name='title'
-          label='Title'
-          value={title}
-          onChange={this.handleChange}
-          className='text-field'
-          margin="dense"
-          helperText={this.state.titleErrorMsg}
-          inputProps={{ maxLength: 128 }}
-        />
-        <TextField
-          error={!!descriptionErrorMsg}
-          name='description'
-          label='Description'
-          value={description}
-          onChange={this.handleChange}
-          className='text-field'
-          margin="dense"
-          helperText={descriptionErrorMsg}
-          inputProps={{ maxLength: 128 }}
-        />
-        {images.map((image, index) => {
-          return (
+      <div>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.props.open}
+          onClose={this.props.handleClose}
+        >
+          <form className='flex-container modal-form'>
             <TextField
-              error={!!image.imageErrorMsg}
-              name={`${index}`}
-              label={`Image ${index} url`}
-              value={image.image}
-              onChange={this.handleUrlChange}
-              helperText={image.imageErrorMsg}
-              inputProps={{ maxLength: 128 }}
-              key={index}
-              margin="dense"
+              error={!!titleErrorMsg}
+              name='title'
+              label='Title'
+              value={title}
+              onChange={this.handleChange}
               className='text-field'
+              margin="dense"
+              helperText={this.state.titleErrorMsg}
+              inputProps={{ maxLength: 128 }}
             />
-          );
-        })}
-        <Button
-          variant='contained'
-          color='secondary'
-          onClick={this.addUrl}
-          className='form-button'>
-          Add another URL
-        </Button>
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={this.handleSubmit}
-          className='form-button'>
-          Submit
-        </Button>
-      </form>
+            <TextField
+              error={!!descriptionErrorMsg}
+              name='description'
+              label='Description'
+              value={description}
+              onChange={this.handleChange}
+              className='text-field'
+              margin="dense"
+              helperText={descriptionErrorMsg}
+              inputProps={{ maxLength: 128 }}
+            />
+            {images.map((image, index) => {
+              return (
+                <TextField
+                  error={!!image.imageErrorMsg}
+                  name={`${index}`}
+                  label={`Image ${index} url`}
+                  value={image.image}
+                  onChange={this.handleUrlChange}
+                  helperText={image.imageErrorMsg}
+                  inputProps={{ maxLength: 128 }}
+                  key={index}
+                  margin="dense"
+                  className='text-field'
+                />
+              );
+            })}
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={this.handleSubmit}
+              className='form-button'>
+              Submit
+            </Button>
+          </form>
+        </Modal>
+      </div>
     )
   }
-};
+}

@@ -1,5 +1,5 @@
-Total hours: 11.5
-last clocked in: 10pm
+Total hours: 12.5
+last clocked in: 
 
 July 31st
 
@@ -46,3 +46,12 @@ TODO
 - Add ability to submit multiple image urls
 - Add scrollable cards with multiple images
 - Add max-len to textfield
+
+
+Aug 13th
+
+TODO
+- Add header
+- Move form into modal that is opened when clicking on button
+- Remove multiple urls (for now)
+- Try to have navbar follow when scrolling down
