@@ -12,7 +12,7 @@ import Search from '@material-ui/icons/Search';
 import './NavBar.css';
 
 export default class NavBar extends Component {
-  state = { open: false }
+  state = { open: true }
 
   openModal = () => {
     this.setState({

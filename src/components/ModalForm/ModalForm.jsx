@@ -8,7 +8,11 @@ export default class ModalForm extends Component {
     titleErrorMsg: '',
     description: '',
     descriptionErrorMsg: '',
-    image: '',
+    images: [
+      {
+        image: '',
+      }
+    ]
   }
 
   handleChange = (e) => {
@@ -17,73 +21,55 @@ export default class ModalForm extends Component {
     });
   }
 
-  // handleUrlChange = (e) => {
-  //   let updatedImages = this.state.images;
-  //   updatedImages[e.target.name].image = e.target.value;
-  //   this.setState({
-  //     images: updatedImages,
-  //   })
-  // }
-
-  fieldIsEmpty = (str) => {
-    if(!str) return true;
-    return false;
+  addImageUrl = (e) => {
+    let images = this.state.images;
+    images.push({ image: '' });
+    this.setState({
+      images,
+    })
   }
 
-  urlIsValid = (url) => {
-    const reg = /(https?:\/\/.*\.(?:png|jpg))/;
-    // Returns true if url matches regex, false otherwise
-    return reg.test(url)
+  handleUrlChange = (e) => {
+    console.log(e.target.name)
+    let updatedImages = this.state.images;
+    updatedImages[e.target.name].image = e.target.value;
+    this.setState({
+      images: updatedImages,
+    })
   }
-
-  // fieldsAreValid = (title, description, images) => {
-  //   this.setState({
-  //     titleErrorMsg: '',
-  //     descriptionErrorMsg: '',
-  //   });
-
-  //   let errorMessages = {};
-  //   let imageErrorMessages = {};
-  //   if(this.fieldIsEmpty(title)) {
-  //     errorMessages.titleErrorMsg = 'No title set';
-  //   }
-  //   if(this.fieldIsEmpty(description)) {
-  //     errorMessages.descriptionErrorMsg = 'No description set';
-  //   }
-  //   // if(this.fieldIsEmpty(imageUrl)) {
-  //   //   errorMessages.imageErrorMsg = 'No image url set';
-  //   // }
-
-  //   for(let i in images) {
-  //     console.log(images[i]);
-  //     if(!this.urlIsValid(images[i].url)) {
-  //       imageErrorMessages.imageErrorMsg = 'Invalid image url';
-  //     }
-  //   }
-
-  //   this.setState({
-  //     ...errorMessages,
-  //   })
-  //   if(Object.keys(errorMessages).length === 0){
-  //     this.setState({
-  //       title: '',
-  //       description: '',
-  //     })
-  //     return true;
-  //   }
-  //   return false;
-  // }
 
   handleSubmit = (e) => {
     const { title, description, image } = this.state;
     // if(!this.fieldsAreValid(title, description, images)) {
     //   return;
     // }
+    this.setState({
+      images: [{ image: '' }],
+      title: '',
+      description: '',
+    })
     this.props.modalSubmit(title, description, image);
   }
 
   render() {
-    const { image, title, titleErrorMsg, description, descriptionErrorMsg } = this.state;
+    const { image, images, title, titleErrorMsg, description, descriptionErrorMsg } = this.state;
+
+    const imageUrls = images.map((image, index) => {
+      return (
+        <TextField
+          name={`${index}`}
+          label='Image'
+          key={index}
+          id={`${index}`}
+          value={image.image}
+          onChange={this.handleUrlChange}
+          inputProps={{ maxLength: 128 }}
+          margin="dense"
+          className='text-field'
+        />
+      )
+    })
+    console.log(imageUrls);
 
     return (
       <div>
@@ -116,7 +102,7 @@ export default class ModalForm extends Component {
               helperText={descriptionErrorMsg}
               inputProps={{ maxLength: 128 }}
             />
-            <TextField
+            {/* <TextField
               name='image'
               label='Image'
               value={image}
@@ -124,7 +110,15 @@ export default class ModalForm extends Component {
               inputProps={{ maxLength: 128 }}
               margin="dense"
               className='text-field'
-            />
+            /> */}
+            {imageUrls}
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={this.addImageUrl}
+              className='form-button'>
+              Add Image Url
+            </Button>
             <Button
               variant='contained'
               color='primary'
