@@ -51,21 +51,23 @@ export default class CustomCard extends React.Component {
               )
             })}
           </SwipeableViews>
-          <MobileStepper
-            steps={maxSteps}
-            position="static"
-            activeStep={activeStep}
-            nextButton={
-              <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
-                Next
-              </Button>
-            }
-            backButton={
-              <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
-                Back
-              </Button>
-            }
-          />
+          {maxSteps > 1 && 
+            <MobileStepper
+              steps={maxSteps}
+              position="static"
+              activeStep={activeStep}
+              nextButton={
+                <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
+                  Next
+                </Button>
+              }
+              backButton={
+                <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
+                  Back
+                </Button>
+              }
+            />
+          }
           <CardContent>
             {description}
           </CardContent>
