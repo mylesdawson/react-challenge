@@ -1,9 +1,11 @@
 .card {
   margin: 10px;
-  width: 600px;
+  min-width: 400px;
+  max-width: 600px;
+  width: 60%;
 }
 
 .card-media {
   height: 0;
-  padding-top: 56.25%;
+  padding-top: 80%;
 }
