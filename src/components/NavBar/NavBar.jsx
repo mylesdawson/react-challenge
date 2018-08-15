@@ -31,7 +31,7 @@ export default class NavBar extends Component {
     // console.log(this.state.open);
     return (
       <div className="navbar">
-        <AppBar position="static">
+        <AppBar position="static" className="appbar">
           <Toolbar>
             <Typography variant="title" color="inherit">
               InstaClone

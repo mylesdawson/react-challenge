@@ -1,5 +1,5 @@
 Total hours: 13.5
-last clocked in:
+last clocked in: 9pm
 
 July 31st
 
@@ -56,9 +56,10 @@ TODO
 - Remove multiple urls (for now)
 - Try to have navbar follow when scrolling down
 
-Aug 13th
+Aug 14th
 
 TODO
 - Make navbar look better
 - Possibly switch css styles to use material-ui convention (fixes overwriting of styles)
 - Add search to navbar
+- Add sorting features

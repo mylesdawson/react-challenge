@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import Card from './Card/CustomCard.jsx';
 import NavBar from './NavBar/NavBar.jsx';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 export default class App extends React.Component {
   state = { 
@@ -92,6 +93,7 @@ export default class App extends React.Component {
 
     return (
       <Fragment>
+        <CssBaseline/>
         <NavBar addClick={this.addClick} modalSubmit={this.handleSubmit} handleSearch={this.handleSearch}/>
         <div className="container">
           {allPosts}

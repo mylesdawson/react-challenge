@@ -6,3 +6,8 @@
 .nav-icon {
   margin-left: auto !important;
 }
+
+.appbar {
+  color: black !important;
+  background-color: white !important;
+}
