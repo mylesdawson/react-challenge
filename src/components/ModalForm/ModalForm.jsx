@@ -8,14 +8,7 @@ export default class ModalForm extends Component {
     titleErrorMsg: '',
     description: '',
     descriptionErrorMsg: '',
-    images: [
-      {
-        id: 0,
-        image: '',
-        imageErrorMsg: '',
-      }
-    ],
-    nextImageId: 1,
+    image: '',
   }
 
   handleChange = (e) => {
@@ -24,13 +17,13 @@ export default class ModalForm extends Component {
     });
   }
 
-  handleUrlChange = (e) => {
-    let updatedImages = this.state.images;
-    updatedImages[e.target.name].image = e.target.value;
-    this.setState({
-      images: updatedImages,
-    })
-  }
+  // handleUrlChange = (e) => {
+  //   let updatedImages = this.state.images;
+  //   updatedImages[e.target.name].image = e.target.value;
+  //   this.setState({
+  //     images: updatedImages,
+  //   })
+  // }
 
   fieldIsEmpty = (str) => {
     if(!str) return true;
@@ -82,16 +75,15 @@ export default class ModalForm extends Component {
   // }
 
   handleSubmit = (e) => {
-    const { title, description } = this.state;
-    let { images } = this.state;
+    const { title, description, image } = this.state;
     // if(!this.fieldsAreValid(title, description, images)) {
     //   return;
     // }
-    this.props.modalSubmit(title, description, images);
+    this.props.modalSubmit(title, description, image);
   }
 
   render() {
-    const { images, title, titleErrorMsg, description, descriptionErrorMsg } = this.state;
+    const { image, title, titleErrorMsg, description, descriptionErrorMsg } = this.state;
 
     return (
       <div>
@@ -124,22 +116,15 @@ export default class ModalForm extends Component {
               helperText={descriptionErrorMsg}
               inputProps={{ maxLength: 128 }}
             />
-            {images.map((image, index) => {
-              return (
-                <TextField
-                  error={!!image.imageErrorMsg}
-                  name={`${index}`}
-                  label={`Image ${index} url`}
-                  value={image.image}
-                  onChange={this.handleUrlChange}
-                  helperText={image.imageErrorMsg}
-                  inputProps={{ maxLength: 128 }}
-                  key={index}
-                  margin="dense"
-                  className='text-field'
-                />
-              );
-            })}
+            <TextField
+              name='image'
+              label='Image'
+              value={image}
+              onChange={this.handleChange}
+              inputProps={{ maxLength: 128 }}
+              margin="dense"
+              className='text-field'
+            />
             <Button
               variant='contained'
               color='primary'

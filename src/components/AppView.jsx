@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
 import Card from './Card/CustomCard.jsx';
-import Form from './Form/Form.jsx';
 import NavBar from './NavBar/NavBar.jsx';
 
 export default class App extends React.Component {
-  state = { posts: [] }
+  state = { 
+    posts: [],
+    search: '',
+  }
 
   componentDidMount() {
     this.fetchPosts()
@@ -60,9 +62,15 @@ export default class App extends React.Component {
       })
   }
 
+  handleSearch = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
   render() {
-    const { posts } = this.state;
-    const allPosts = posts.map(item => {
+    const { posts, search } = this.state;
+    let allPosts = posts.map(item => {
       return (
         <Card 
           key={item.id} 
@@ -74,9 +82,17 @@ export default class App extends React.Component {
       ) 
     });
 
+    if(search) {
+      // console.log(`search is: ${search}`);
+      allPosts = allPosts.filter(item => {
+        const title = item.props.title.toLowerCase();
+        return title.includes(search)
+      })
+    }
+
     return (
       <Fragment>
-        <NavBar addClick={this.addClick} modalSubmit={this.handleSubmit}/>
+        <NavBar addClick={this.addClick} modalSubmit={this.handleSubmit} handleSearch={this.handleSearch}/>
         <div className="container">
           {allPosts}
         </div>
