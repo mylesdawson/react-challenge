@@ -11,7 +11,7 @@ import Search from '@material-ui/icons/Search';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
-  navbar : {
+  navbar: {
     flexGrow: 1,
   },
   navIcon: {
@@ -20,8 +20,8 @@ const styles = {
   appbar: {
     color: 'black',
     backgroundColor: 'white',
-  }
-}
+  },
+};
 
 class NavBar extends Component {
   state = { open: false }

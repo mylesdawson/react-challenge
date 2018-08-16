@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import { Button, TextField, Modal, FormHelperText } from '@material-ui/core';
 import { fieldIsEmpty, urlIsValid } from '../../utils/utils';
 // import './ModalForm.css';
-import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   modalForm: {
@@ -19,8 +19,8 @@ const styles = {
   formButton: {
     marginTop: 10,
     width: 300,
-  }
-}
+  },
+};
 
 class ModalForm extends Component {
   state = {
@@ -32,24 +32,24 @@ class ModalForm extends Component {
 
   handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   addImageUrl = (e) => {
-    let images = this.state.images;
+    const { images } = this.state;
     images.push({ image: '' });
     this.setState({
       images,
-    })
+    });
   }
 
   handleUrlChange = (e) => {
-    let updatedImages = this.state.images;
+    const updatedImages = this.state.images;
     updatedImages[e.target.name].image = e.target.value;
     this.setState({
       images: updatedImages,
-    })
+    });
   }
 
   handleSubmit = (e) => {
@@ -58,12 +58,12 @@ class ModalForm extends Component {
     for(let i in images) {
       if(!urlIsValid(images[i].image)) {
         this.setState({ errorMsg: 'One or more image urls are invalid' });
-        return
+        return;
       }
     }
-    if(fieldIsEmpty(title) || fieldIsEmpty(description)) {
+    if (fieldIsEmpty(title) || fieldIsEmpty(description)) {
       this.setState({ errorMsg: 'Title or Description is empty'});
-      return
+      return;
     }
 
     this.setState({
@@ -90,8 +90,8 @@ class ModalForm extends Component {
           margin="dense"
           style={styles.textField}
         />
-      )
-    })
+      );
+    });
 
     return (
       <div>
@@ -132,8 +132,8 @@ class ModalForm extends Component {
             <Button
               variant='contained'
               color='secondary'
-              onClick={this.addImageUrl}
               style={styles.formButton}>
+              onClick={this.addImageUrl}
               Add Image Url
             </Button>
             <Button

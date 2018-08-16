@@ -19,9 +19,9 @@ const styles = {
     paddingTop: '80%',
   },
   deleteIcon: {
-    marginLeft: 'auto'
-  }
-}
+    marginLeft: 'auto',
+  },
+};
 
 class CustomCard extends React.Component {
   state = {
@@ -40,14 +40,21 @@ class CustomCard extends React.Component {
     }));
   };
 
-  handleStepChange = activeStep => {
-    this.setState({ activeStep });
-  };
+  handleStepChange = activeStep => this.setState({ activeStep });
 
   render() {
-    const { title, images, description, id} = this.props;
+    const { title, images, description, id } = this.props;
     const { activeStep } = this.state;
     const maxSteps = images.length;
+
+    mappedImages = images.map((image) => {
+      return (
+        <CardMedia
+          style={styles.cardMedia}
+          image={image.url}
+          key={image.id}/>
+      );
+    });
 
     return (
       <div className='flex-container'>
@@ -58,16 +65,10 @@ class CustomCard extends React.Component {
             index={activeStep}
             onChangeIndex={this.handleStepChange}
             enableMouseEvents>
-            {images.map(image => {
-              return (
-                <CardMedia
-                  style={styles.cardMedia}
-                  image={image.url}
-                  key={image.id}/>
-              )
-            })}
+            {mappedImages}
+
           </SwipeableViews>
-          {maxSteps > 1 && 
+          {maxSteps > 1 &&
             <MobileStepper
               steps={maxSteps}
               position="static"

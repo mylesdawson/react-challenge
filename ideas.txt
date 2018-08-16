@@ -1,5 +1,5 @@
-Total hours: 13.5
-last clocked in: 9pm
+Total hours: 16.5
+last clocked in: 
 
 July 31st
 
@@ -63,3 +63,14 @@ TODO
 - Possibly switch css styles to use material-ui convention (fixes overwriting of styles)
 - Add search to navbar
 - Add sorting features
+
+Aug 15th
+
+TODO
+- Add ability to submit multiple image urls
+- Do some testing?
+- Disable like button or create like features
+- Move css to material-ui style
+- Try await syntax
+- Add linter and check code style 
+- Add PropTypes
