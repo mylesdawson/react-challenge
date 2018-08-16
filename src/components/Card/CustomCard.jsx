@@ -47,7 +47,7 @@ class CustomCard extends React.Component {
     const { activeStep } = this.state;
     const maxSteps = images.length;
 
-    mappedImages = images.map((image) => {
+    const mappedImages = images.map((image) => {
       return (
         <CardMedia
           style={styles.cardMedia}
@@ -66,7 +66,6 @@ class CustomCard extends React.Component {
             onChangeIndex={this.handleStepChange}
             enableMouseEvents>
             {mappedImages}
-
           </SwipeableViews>
           {maxSteps > 1 &&
             <MobileStepper
@@ -90,7 +89,7 @@ class CustomCard extends React.Component {
           </CardContent>
           <CardActions>
             <IconButton>
-              <ThumbsUpAlt/>
+              <ThumbsUpAlt />
             </IconButton>
             <IconButton style={styles.deleteIcon} onClick={() => this.props.handleDelete(id)}>
               <Delete />
@@ -98,8 +97,8 @@ class CustomCard extends React.Component {
           </CardActions>
         </Card>
       </div>
-    )
+    );
   }
-};
+}
 
 export default withStyles(styles)(CustomCard);

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ModalForm from '../ModalForm/ModalForm.jsx';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import TextField from '@material-ui/core/TextField';
@@ -9,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import AddCircle from '@material-ui/icons/AddCircle';
 import Search from '@material-ui/icons/Search';
 import { withStyles } from '@material-ui/core/styles';
+import ModalForm from '../ModalForm/ModalForm.jsx';
 
 const styles = {
   navbar: {
@@ -29,13 +29,13 @@ class NavBar extends Component {
   openModal = () => {
     this.setState({
       open: true,
-    })
+    });
   }
 
   closeModal = () => {
     this.setState({
       open: false,
-    })
+    });
   }
 
   render() {
@@ -65,10 +65,15 @@ class NavBar extends Component {
             </IconButton>
           </Toolbar>
         </AppBar>
-        {this.state.open && <ModalForm handleClose={this.closeModal} open={this.state.open} modalSubmit={this.props.modalSubmit}/>}
+        {this.state.open &&
+          <ModalForm
+            handleClose={this.closeModal}
+            open={this.state.open}
+            modalSubmit={this.props.modalSubmit}/>
+        }
       </div>
-    )
+    );
   }
-};
+}
 
 export default withStyles(styles)(NavBar);

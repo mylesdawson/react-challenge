@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, TextField, Modal, FormHelperText } from '@material-ui/core';
 import { fieldIsEmpty, urlIsValid } from '../../utils/utils';
-// import './ModalForm.css';
 
 const styles = {
   modalForm: {
@@ -55,14 +54,14 @@ class ModalForm extends Component {
   handleSubmit = (e) => {
     const { title, description, images } = this.state;
 
-    for(let i in images) {
-      if(!urlIsValid(images[i].image)) {
+    Object.keys(images).forEach((key) => {
+      if (!urlIsValid(key)) {
         this.setState({ errorMsg: 'One or more image urls are invalid' });
-        return;
       }
-    }
+    });
+
     if (fieldIsEmpty(title) || fieldIsEmpty(description)) {
-      this.setState({ errorMsg: 'Title or Description is empty'});
+      this.setState({ errorMsg: 'Title or Description is empty' });
       return;
     }
 
@@ -70,7 +69,7 @@ class ModalForm extends Component {
       images: [{ image: '' }],
       title: '',
       description: '',
-    })
+    });
     this.props.modalSubmit(title, description, images);
   }
 
@@ -132,8 +131,8 @@ class ModalForm extends Component {
             <Button
               variant='contained'
               color='secondary'
-              style={styles.formButton}>
-              onClick={this.addImageUrl}
+              style={styles.formButton}
+              onClick={this.addImageUrl}>
               Add Image Url
             </Button>
             <Button
@@ -146,7 +145,7 @@ class ModalForm extends Component {
           </form>
         </Modal>
       </div>
-    )
+    );
   }
 }
 
