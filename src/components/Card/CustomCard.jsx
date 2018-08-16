@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import { MobileStepper, CardActions, CardContent, CardHeader, CardMedia, Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -100,5 +101,12 @@ class CustomCard extends React.Component {
     );
   }
 }
+
+CustomCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
+  images: PropTypes.array.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+};
 
 export default withStyles(styles)(CustomCard);

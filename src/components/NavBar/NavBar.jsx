@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import TextField from '@material-ui/core/TextField';
@@ -75,5 +76,11 @@ class NavBar extends Component {
     );
   }
 }
+
+NavBar.propTypes = {
+  addClick: PropTypes.func.isRequired,
+  modalSubmit: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+};
 
 export default withStyles(styles)(NavBar);

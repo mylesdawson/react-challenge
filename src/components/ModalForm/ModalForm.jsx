@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, TextField, Modal, FormHelperText } from '@material-ui/core';
 import { fieldIsEmpty, urlIsValid } from '../../utils/utils';
@@ -148,5 +149,11 @@ class ModalForm extends Component {
     );
   }
 }
+
+ModalForm.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+  open: PropTypes.func.isRequired,
+  modalSubmit: PropTypes.func.isRequired,
+};
 
 export default withStyles(styles)(ModalForm);
