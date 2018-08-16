@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import { Button, TextField, Modal } from '@material-ui/core';
+import { Button, TextField, Modal, FormHelperText } from '@material-ui/core';
+import { fieldIsEmpty, urlIsValid, imageUrlsAreValid } from '../../utils/utils';
 import './ModalForm.css';
 
 export default class ModalForm extends Component {
   state = {
     title: '',
-    titleErrorMsg: '',
     description: '',
-    descriptionErrorMsg: '',
-    images: [
-      {
-        image: '',
-      }
-    ]
+    images: [{ image: '' }],
+    errorMsg: '',
   }
 
   handleChange = (e) => {
@@ -30,7 +26,6 @@ export default class ModalForm extends Component {
   }
 
   handleUrlChange = (e) => {
-    console.log(e.target.name)
     let updatedImages = this.state.images;
     updatedImages[e.target.name].image = e.target.value;
     this.setState({
@@ -39,20 +34,29 @@ export default class ModalForm extends Component {
   }
 
   handleSubmit = (e) => {
-    const { title, description, image } = this.state;
-    // if(!this.fieldsAreValid(title, description, images)) {
-    //   return;
-    // }
+    const { title, description, images } = this.state;
+
+    for(let i in images) {
+      if(!urlIsValid(images[i].image)) {
+        this.setState({ errorMsg: 'One or more image urls are invalid' });
+        return
+      }
+    }
+    if(fieldIsEmpty(title) || fieldIsEmpty(description)) {
+      this.setState({ errorMsg: 'Title or Description is empty'});
+      return
+    }
+
     this.setState({
       images: [{ image: '' }],
       title: '',
       description: '',
     })
-    this.props.modalSubmit(title, description, image);
+    this.props.modalSubmit(title, description, images);
   }
 
   render() {
-    const { image, images, title, titleErrorMsg, description, descriptionErrorMsg } = this.state;
+    const { images, title, description, errorMsg } = this.state;
 
     const imageUrls = images.map((image, index) => {
       return (
@@ -69,7 +73,6 @@ export default class ModalForm extends Component {
         />
       )
     })
-    console.log(imageUrls);
 
     return (
       <div>
@@ -81,37 +84,32 @@ export default class ModalForm extends Component {
         >
           <form className='flex-container modal-form'>
             <TextField
-              error={!!titleErrorMsg}
               name='title'
               label='Title'
               value={title}
               onChange={this.handleChange}
               className='text-field'
               margin="dense"
-              helperText={this.state.titleErrorMsg}
               inputProps={{ maxLength: 128 }}
             />
             <TextField
-              error={!!descriptionErrorMsg}
               name='description'
               label='Description'
               value={description}
               onChange={this.handleChange}
               className='text-field'
               margin="dense"
-              helperText={descriptionErrorMsg}
               inputProps={{ maxLength: 128 }}
             />
-            {/* <TextField
-              name='image'
-              label='Image'
-              value={image}
-              onChange={this.handleChange}
-              inputProps={{ maxLength: 128 }}
-              margin="dense"
-              className='text-field'
-            /> */}
             {imageUrls}
+            <FormHelperText
+              name='error'
+              label='error'
+              error
+              margin="dense"
+              className='text-field'>
+              {errorMsg}
+            </FormHelperText>
             <Button
               variant='contained'
               color='secondary'

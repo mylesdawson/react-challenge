@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import Card from './Card/CustomCard.jsx';
 import NavBar from './NavBar/NavBar.jsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import '../index.css';
 
 export default class App extends React.Component {
   state = { 
@@ -51,13 +52,18 @@ export default class App extends React.Component {
       })
   }
 
-  handleSubmit = (title, description, image) => {
+  handleSubmit = (title, description, images) => {
     this.createPost(title, description)
       .then(r => r.json())
       .then(r => {
-        console.log(r);
-        this.createImage(image, r.id)
-        .then(r => {
+        let urls = images.map(image => {
+          return image.image;
+        })
+        let promises = urls.map(url => {
+          return this.createImage(url, r.id);
+        })
+        Promise.all(promises)
+        .then(res => {
           this.fetchPosts();
         })
       })

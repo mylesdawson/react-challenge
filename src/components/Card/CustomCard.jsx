@@ -75,7 +75,7 @@ export default class CustomCard extends React.Component {
             <IconButton>
               <ThumbsUpAlt/>
             </IconButton>
-            <IconButton onClick={() => this.props.handleDelete(id)}>
+            <IconButton className="delete-icon" onClick={() => this.props.handleDelete(id)}>
               <Delete />
             </IconButton>
           </CardActions>
