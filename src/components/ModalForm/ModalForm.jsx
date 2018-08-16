@@ -1,9 +1,28 @@
 import React, { Component } from 'react';
 import { Button, TextField, Modal, FormHelperText } from '@material-ui/core';
-import { fieldIsEmpty, urlIsValid, imageUrlsAreValid } from '../../utils/utils';
-import './ModalForm.css';
+import { fieldIsEmpty, urlIsValid } from '../../utils/utils';
+// import './ModalForm.css';
+import { withStyles } from '@material-ui/core/styles';
 
-export default class ModalForm extends Component {
+const styles = {
+  modalForm: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    padding: 32,
+    backgroundColor: '#fff',
+  },
+  textField: {
+    width: 300,
+  },
+  formButton: {
+    marginTop: 10,
+    width: 300,
+  }
+}
+
+class ModalForm extends Component {
   state = {
     title: '',
     description: '',
@@ -69,7 +88,7 @@ export default class ModalForm extends Component {
           onChange={this.handleUrlChange}
           inputProps={{ maxLength: 128 }}
           margin="dense"
-          className='text-field'
+          style={styles.textField}
         />
       )
     })
@@ -82,13 +101,13 @@ export default class ModalForm extends Component {
           open={this.props.open}
           onClose={this.props.handleClose}
         >
-          <form className='flex-container modal-form'>
+          <form className='flex-container' style={styles.modalForm}>
             <TextField
               name='title'
               label='Title'
               value={title}
               onChange={this.handleChange}
-              className='text-field'
+              style={styles.textField}
               margin="dense"
               inputProps={{ maxLength: 128 }}
             />
@@ -97,7 +116,7 @@ export default class ModalForm extends Component {
               label='Description'
               value={description}
               onChange={this.handleChange}
-              className='text-field'
+              style={styles.textField}
               margin="dense"
               inputProps={{ maxLength: 128 }}
             />
@@ -107,21 +126,21 @@ export default class ModalForm extends Component {
               label='error'
               error
               margin="dense"
-              className='text-field'>
+              style={styles.textField}>
               {errorMsg}
             </FormHelperText>
             <Button
               variant='contained'
               color='secondary'
               onClick={this.addImageUrl}
-              className='form-button'>
+              style={styles.formButton}>
               Add Image Url
             </Button>
             <Button
               variant='contained'
               color='primary'
               onClick={this.handleSubmit}
-              className='form-button'>
+              style={styles.formButton}>
               Submit
             </Button>
           </form>
@@ -130,3 +149,5 @@ export default class ModalForm extends Component {
     )
   }
 }
+
+export default withStyles(styles)(ModalForm);

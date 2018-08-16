@@ -5,9 +5,25 @@ import IconButton from '@material-ui/core/IconButton';
 import ThumbsUpAlt from '@material-ui/icons/ThumbUpSharp';
 import Delete from '@material-ui/icons/Delete';
 import SwipeableViews from 'react-swipeable-views';
-import './CustomCard.css';
+import { withStyles } from '@material-ui/core/styles';
 
-export default class CustomCard extends React.Component {
+const styles = {
+  card: {
+    margin: 10,
+    minWidth: 400,
+    maxWidth: 600,
+    width: '60%',
+  },
+  cardMedia: {
+    height: 0,
+    paddingTop: '80%',
+  },
+  deleteIcon: {
+    marginLeft: 'auto'
+  }
+}
+
+class CustomCard extends React.Component {
   state = {
     activeStep: 0,
   }
@@ -35,7 +51,7 @@ export default class CustomCard extends React.Component {
 
     return (
       <div className='flex-container'>
-        <Card className='card'>
+        <Card style={styles.card}>
           <CardHeader
             title={title}/>
           <SwipeableViews
@@ -45,7 +61,7 @@ export default class CustomCard extends React.Component {
             {images.map(image => {
               return (
                 <CardMedia
-                  className='card-media'
+                  style={styles.cardMedia}
                   image={image.url}
                   key={image.id}/>
               )
@@ -75,7 +91,7 @@ export default class CustomCard extends React.Component {
             <IconButton>
               <ThumbsUpAlt/>
             </IconButton>
-            <IconButton className="delete-icon" onClick={() => this.props.handleDelete(id)}>
+            <IconButton style={styles.deleteIcon} onClick={() => this.props.handleDelete(id)}>
               <Delete />
             </IconButton>
           </CardActions>
@@ -83,5 +99,6 @@ export default class CustomCard extends React.Component {
       </div>
     )
   }
-
 };
+
+export default withStyles(styles)(CustomCard);

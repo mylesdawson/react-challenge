@@ -3,15 +3,27 @@ import ModalForm from '../ModalForm/ModalForm.jsx';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import AddCircle from '@material-ui/icons/AddCircle';
 import Search from '@material-ui/icons/Search';
-import './NavBar.css';
+import { withStyles } from '@material-ui/core/styles';
 
-export default class NavBar extends Component {
+const styles = {
+  navbar : {
+    flexGrow: 1,
+  },
+  navIcon: {
+    marginLeft: 'auto',
+  },
+  appbar: {
+    color: 'black',
+    backgroundColor: 'white',
+  }
+}
+
+class NavBar extends Component {
   state = { open: false }
 
   openModal = () => {
@@ -26,16 +38,16 @@ export default class NavBar extends Component {
     })
   }
 
-
   render() {
     return (
-      <div className="navbar">
-        <AppBar position="static" className="appbar">
+      <div className="navbar" style={styles.navbar}>
+        <AppBar position="static" className="appbar" style={styles.appbar}>
           <Toolbar>
             <Typography variant="title" color="inherit">
               InstaClone
             </Typography>
             <TextField
+              style={styles.navIcon}
               className="nav-icon search"
               placeholder="Search"
               name="search"
@@ -58,3 +70,5 @@ export default class NavBar extends Component {
     )
   }
 };
+
+export default withStyles(styles)(NavBar);
