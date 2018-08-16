@@ -78,7 +78,6 @@ class NavBar extends Component {
 }
 
 NavBar.propTypes = {
-  addClick: PropTypes.func.isRequired,
   modalSubmit: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
 };

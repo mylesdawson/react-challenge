@@ -84,7 +84,6 @@ export default class App extends React.Component {
       <Fragment>
         <CssBaseline/>
         <NavBar
-          addClick={this.addClick}
           modalSubmit={this.handleSubmit}
           handleSearch={this.handleSearch}
         />

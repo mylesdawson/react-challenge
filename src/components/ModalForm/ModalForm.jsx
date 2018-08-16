@@ -70,6 +70,7 @@ class ModalForm extends Component {
       images: [{ image: '' }],
       title: '',
       description: '',
+      errorMsg: '',
     });
     this.props.modalSubmit(title, description, images);
   }
@@ -152,7 +153,7 @@ class ModalForm extends Component {
 
 ModalForm.propTypes = {
   handleClose: PropTypes.func.isRequired,
-  open: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
   modalSubmit: PropTypes.func.isRequired,
 };
 
