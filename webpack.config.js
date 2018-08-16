@@ -17,8 +17,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, use: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.jsx$/, use: ['babel-loader', 'eslint-loader'], exclude: /node_modules/ },
+      { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader', 'eslint-loader'] },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       { test: /\.(png|jpg|gif)$/i, loader: 'url-loader'}
     ]

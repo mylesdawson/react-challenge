@@ -1,0 +1,11 @@
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "no-unused-vars": 0,
+    "no-undef": 0,
+    "object-curly-newline": 0
+  },
+  "extends": [
+    "airbnb-base"
+  ]
+}
