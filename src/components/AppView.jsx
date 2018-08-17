@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Card from './Card/CustomCard.jsx';
 import NavBar from './NavBar/NavBar.jsx';
-import { getPosts, createPost, deletePost, createImage, deleteImage, createImages, deleteImages } from '../utils/api';
+import { getPosts, createPost, deletePost, createImages, deleteImages } from '../utils/api';
 import '../index.css';
 
 export default class App extends React.Component {
@@ -47,8 +47,7 @@ export default class App extends React.Component {
     createPost(title, description)
       .then(r => r.json())
       .then((r) => {
-        const promises = images.map(image => createImage(image.image, r.id));
-        Promise.all(promises)
+        createImages(images, r.id)
           .then(res => this.fetchPosts());
       });
   }

@@ -53,16 +53,21 @@ class ModalForm extends Component {
   }
 
   handleSubmit = (e) => {
+    let err = false;
     const { title, description, images } = this.state;
-
-    Object.keys(images).forEach((key) => {
-      if (!urlIsValid(key)) {
-        this.setState({ errorMsg: 'One or more image urls are invalid' });
-      }
-    });
 
     if (fieldIsEmpty(title) || fieldIsEmpty(description)) {
       this.setState({ errorMsg: 'Title or Description is empty' });
+      return;
+    }
+
+    Object.values(images).forEach((value) => {
+      if (!urlIsValid(value.image)) {
+        this.setState({ errorMsg: 'One or more image urls are invalid' });
+        err = true;
+      }
+    });
+    if (err) {
       return;
     }
 
@@ -82,6 +87,7 @@ class ModalForm extends Component {
       return (
         <TextField
           name={`${index}`}
+          autoFocus
           label='Image'
           key={index}
           id={`${index}`}

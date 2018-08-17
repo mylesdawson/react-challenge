@@ -51,6 +51,7 @@ class NavBar extends Component {
               style={styles.navIcon}
               className="nav-icon search"
               placeholder="Search"
+              autoFocus
               name="search"
               onChange={this.props.handleSearch}
               InputProps={{
