@@ -105,6 +105,7 @@ class CustomCard extends React.Component {
 CustomCard.propTypes = {
   id: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   images: PropTypes.array.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };

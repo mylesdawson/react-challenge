@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, TextField, Modal, FormHelperText } from '@material-ui/core';
@@ -101,7 +101,7 @@ class ModalForm extends Component {
     });
 
     return (
-      <div>
+      <Fragment>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -152,7 +152,7 @@ class ModalForm extends Component {
             </Button>
           </form>
         </Modal>
-      </div>
+      </Fragment>
     );
   }
 }
