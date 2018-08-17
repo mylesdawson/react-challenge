@@ -22,34 +22,28 @@ export default class App extends React.Component {
     });
   };
 
-  fetchPosts = () => {
-    getPosts()
-      .then(res => res.json())
-      .then((res) => {
-        const sortedPosts = res.sort((a, b) => b.id - a.id);
-        this.setState({ posts: sortedPosts });
-      });
+  fetchPosts = async () => {
+    const posts = await getPosts();
+    const jsonData = await posts.json();
+
+    const sortedPosts = jsonData.sort((a, b) => b.id - a.id);
+    this.setState({ posts: sortedPosts });
   };
 
-  handleDelete = (id) => {
-    deletePost(id)
-      .then(res => res.json())
-      .then((res) => {
-        deleteImages(res.images, res.id);
-      })
-      .then(() => {
-        const posts = this.filterPosts(id);
-        this.setState({ posts });
-      });
+  handleDelete = async (id) => {
+    const data = await deletePost(id);
+    const jsonData = await data.json();
+    await deleteImages(jsonData.images, jsonData.id);
+
+    const posts = this.filterPosts(id);
+    this.setState({ posts });
   }
 
-  handleSubmit = (title, description, images) => {
-    createPost(title, description)
-      .then(r => r.json())
-      .then((r) => {
-        createImages(images, r.id)
-          .then(res => this.fetchPosts());
-      });
+  handleSubmit = async (title, description, images) => {
+    const data = await createPost(title, description);
+    const jsonData = await data.json();
+    await createImages(images, jsonData.id);
+    await this.fetchPosts();
   }
 
   handleSearch = (e) => {
