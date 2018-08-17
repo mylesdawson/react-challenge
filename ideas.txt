@@ -1,5 +1,5 @@
-Total hours: 16.5
-last clocked in: 
+Total hours: 20
+last clocked in:
 
 July 31st
 
@@ -71,6 +71,15 @@ TODO
 - Do some testing?
 - Disable like button or create like features
 - Move css to material-ui style
-- Try await syntax
-- Add linter and check code style 
+- Add linter and check code style
 - Add PropTypes
+
+Aug 16th
+
+TODO
+- Add PropTypes
+- Fix rest of eslint issues
+- Refactor api calls to utils
+- Related images should be removed when a post is deleted
+- Fix any other bugs
+- Try async/await syntax
